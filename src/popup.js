@@ -175,11 +175,11 @@ document.getElementById('open-reward-tasks').addEventListener('click', async () 
   function openRewardTasks() {
     chrome.tabs.sendMessage(tab.id, { type: 'OPEN_REWARD_TASKS' });
   }
-  if (tab && tab.url.includes('https://account.microsoft.com/rewards')) {
+  if (tab && tab.url.includes('https://rewards.microsoft.com')) {
       openRewardTasks();
   } else {
     chrome.tabs.update({
-      url: 'https://account.microsoft.com/rewards',
+      url: 'https://rewards.microsoft.com',
     }, () => {
       // this 5s timeout is hack, but it works for the most part (unless your internet or browser speed is very slow)
       // and even if it doesn't work, you just have to click the button again
