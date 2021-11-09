@@ -1,7 +1,9 @@
 const schedulePrefs = {};
 
 function startSearchesInNewTab() {
-  chrome.tabs.create({ active: false }, tab => {
+  chrome.tabs.create({
+    active: false
+  }, tab => {
     startSearches(tab.id);
   });
 }
@@ -11,6 +13,7 @@ function startSearchesInNewTab() {
  */
 let nextSearchTimeout;
 let searchScheduleInterval;
+
 function attemptScheduling() {
   clearTimeout(nextSearchTimeout);
   clearInterval(searchScheduleInterval);

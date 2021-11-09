@@ -67,12 +67,14 @@ hookStorage(queryPrefKeys.map(key => ({
 
 // a redundant set of used queries (for performance) which contain the queries removed from availableQueries
 const usedQueries = new Set();
+
 function addUsedQuery(query) {
   usedQueries.add(query);
   remove(availableQueries, q => q === query);
   // reset the available queries when empty
   if (availableQueries.length === 0) updateQueries();
 }
+
 function isQueryUsed(query) {
   return usedQueries.has(query);
 }

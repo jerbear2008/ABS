@@ -27,12 +27,17 @@ function remove(array, predicateFn) {
 }
 
 function clearBadge() {
-  chrome.browserAction.setBadgeText({ text: '' });
+  chrome.browserAction.setBadgeText({
+    text: ''
+  });
 }
 
 function getCurrentTab() {
   return new Promise(resolve => {
-    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    chrome.tabs.query({
+      active: true,
+      currentWindow: true
+    }, tabs => {
       resolve(tabs[0]);
     });
   });

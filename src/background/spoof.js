@@ -13,14 +13,18 @@ function mobileSpoof(value) {
 }
 
 chrome.webRequest.onBeforeSendHeaders.addListener(details => {
-  const { requestHeaders } = details;
+  const {
+    requestHeaders
+  } = details;
   requestHeaders.forEach(header => {
     if (header.name === 'User-Agent' && spoofUserAgent) {
       if (doMobileSearches) header.value = mobileUserAgent;
       else header.value = edgeUserAgent;
     }
   });
-  return { requestHeaders };
+  return {
+    requestHeaders
+  };
 }, {
   urls: ['https://*.bing.com/*'],
 }, ['blocking', 'requestHeaders']);

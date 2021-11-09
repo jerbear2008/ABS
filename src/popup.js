@@ -42,7 +42,7 @@ function clearCountDisplayText() {
 }
 
 port.onMessage.addListener(msg => {
-  switch(msg.type) {
+  switch (msg.type) {
     case constants.MESSAGE_TYPES.UPDATE_SEARCH_COUNTS: {
       setCountDisplayText(msg);
       break;
@@ -51,7 +51,8 @@ port.onMessage.addListener(msg => {
       clearCountDisplayText();
       break;
     }
-    default: break;
+    default:
+      break;
   }
 });
 chrome.runtime.sendMessage({
@@ -71,30 +72,81 @@ function updateSearchInputsVisibility() {
 // id is HTML id attribute
 // elementKey is how to get the value of that element (depends on type of input)
 // preferenceKey the is key in chrome storage and constants.DEFAULT_PREFERENCES
-const preferenceBindings = [
-  { id: 'desktop-iterations', elementKey: 'value', preferenceKey: 'desktopIterations' },
-  { id: 'mobile-iterations', elementKey: 'value', preferenceKey: 'mobileIterations' },
-  { id: 'delay', elementKey: 'value', preferenceKey: 'delay' },
-  { id: 'random-search-iterations-min', elementKey: 'value', preferenceKey: 'randomSearchIterationsMin' },
-  { id: 'random-search-iterations-max', elementKey: 'value', preferenceKey: 'randomSearchIterationsMax' },
-  { id: 'random-search-delay-min', elementKey: 'value', preferenceKey: 'randomSearchDelayMin' },
-  { id: 'random-search-delay-max', elementKey: 'value', preferenceKey: 'randomSearchDelayMax' },
-  { id: 'auto-click', elementKey: 'checked', preferenceKey: 'autoClick' },
-  { id: 'random-guesses', elementKey: 'checked', preferenceKey: 'randomGuesses' },
-  { id: 'platform-spoofing', elementKey: 'value', preferenceKey: 'platformSpoofing' },
-  { id: 'random-search', elementKey: 'checked', preferenceKey: 'randomSearch' },
-  { id: 'blitz-search', elementKey: 'checked', preferenceKey: 'blitzSearch' },
+const preferenceBindings = [{
+    id: 'desktop-iterations',
+    elementKey: 'value',
+    preferenceKey: 'desktopIterations'
+  },
+  {
+    id: 'mobile-iterations',
+    elementKey: 'value',
+    preferenceKey: 'mobileIterations'
+  },
+  {
+    id: 'delay',
+    elementKey: 'value',
+    preferenceKey: 'delay'
+  },
+  {
+    id: 'random-search-iterations-min',
+    elementKey: 'value',
+    preferenceKey: 'randomSearchIterationsMin'
+  },
+  {
+    id: 'random-search-iterations-max',
+    elementKey: 'value',
+    preferenceKey: 'randomSearchIterationsMax'
+  },
+  {
+    id: 'random-search-delay-min',
+    elementKey: 'value',
+    preferenceKey: 'randomSearchDelayMin'
+  },
+  {
+    id: 'random-search-delay-max',
+    elementKey: 'value',
+    preferenceKey: 'randomSearchDelayMax'
+  },
+  {
+    id: 'auto-click',
+    elementKey: 'checked',
+    preferenceKey: 'autoClick'
+  },
+  {
+    id: 'random-guesses',
+    elementKey: 'checked',
+    preferenceKey: 'randomGuesses'
+  },
+  {
+    id: 'platform-spoofing',
+    elementKey: 'value',
+    preferenceKey: 'platformSpoofing'
+  },
+  {
+    id: 'random-search',
+    elementKey: 'checked',
+    preferenceKey: 'randomSearch'
+  },
+  {
+    id: 'blitz-search',
+    elementKey: 'checked',
+    preferenceKey: 'blitzSearch'
+  },
 ];
 
 getStorage(
-  preferenceBindings.map(({ id, elementKey, preferenceKey }) => ({
+  preferenceBindings.map(({
+    id,
+    elementKey,
+    preferenceKey
+  }) => ({
     key: preferenceKey,
     cb: value => {
       // value could be false, in which case the shortcut || operator
       // would evaluate to the default (not intended)
-      document.getElementById(id)[elementKey] = value === undefined
-        ? constants.DEFAULT_PREFERENCES[preferenceKey]
-        : value;
+      document.getElementById(id)[elementKey] = value === undefined ?
+        constants.DEFAULT_PREFERENCES[preferenceKey] :
+        value;
     },
   })),
 ).then(updateSearchInputsVisibility);
@@ -135,34 +187,89 @@ function openOptions(e) {
 // id is HTML id attribute
 // eventType is the type of event to listen for
 // fn is what to run when the event occurs (defaults to saveChanges)
-const changeBindings = [
-  { id: 'desktop-iterations', eventType: 'input' },
-  { id: 'mobile-iterations', eventType: 'input' },
-  { id: 'delay', eventType: 'input' },
-  { id: 'random-search', eventType: 'change' },
-  { id: 'random-search-iterations-min', eventType: 'input' },
-  { id: 'random-search-iterations-max', eventType: 'input' },
-  { id: 'random-search-delay-min', eventType: 'input' },
-  { id: 'random-search-delay-max', eventType: 'input' },
-  { id: 'auto-click', eventType: 'change' },
-  { id: 'random-guesses', eventType: 'change' },
-  { id: 'platform-spoofing', eventType: 'change' },
-  { id: 'blitz-search', eventType: 'change' },
-  { id: 'reset', eventType: 'click', fn: reset },
-  { id: 'open-options', eventType: 'click', fn: openOptions },
-  { id: 'stop', eventType: 'click', fn: stopSearches },
+const changeBindings = [{
+    id: 'desktop-iterations',
+    eventType: 'input'
+  },
+  {
+    id: 'mobile-iterations',
+    eventType: 'input'
+  },
+  {
+    id: 'delay',
+    eventType: 'input'
+  },
+  {
+    id: 'random-search',
+    eventType: 'change'
+  },
+  {
+    id: 'random-search-iterations-min',
+    eventType: 'input'
+  },
+  {
+    id: 'random-search-iterations-max',
+    eventType: 'input'
+  },
+  {
+    id: 'random-search-delay-min',
+    eventType: 'input'
+  },
+  {
+    id: 'random-search-delay-max',
+    eventType: 'input'
+  },
+  {
+    id: 'auto-click',
+    eventType: 'change'
+  },
+  {
+    id: 'random-guesses',
+    eventType: 'change'
+  },
+  {
+    id: 'platform-spoofing',
+    eventType: 'change'
+  },
+  {
+    id: 'blitz-search',
+    eventType: 'change'
+  },
+  {
+    id: 'reset',
+    eventType: 'click',
+    fn: reset
+  },
+  {
+    id: 'open-options',
+    eventType: 'click',
+    fn: openOptions
+  },
+  {
+    id: 'stop',
+    eventType: 'click',
+    fn: stopSearches
+  },
 ];
 
-changeBindings.forEach(({ id, eventType, fn = saveChanges }) => {
+changeBindings.forEach(({
+  id,
+  eventType,
+  fn = saveChanges
+}) => {
   document.getElementById(id).addEventListener(eventType, fn);
 });
 
 function startSearches() {
-  port.postMessage({ type: constants.MESSAGE_TYPES.START_SEARCH });
+  port.postMessage({
+    type: constants.MESSAGE_TYPES.START_SEARCH
+  });
 }
 
 function stopSearches() {
-  port.postMessage({ type: constants.MESSAGE_TYPES.STOP_SEARCH });
+  port.postMessage({
+    type: constants.MESSAGE_TYPES.STOP_SEARCH
+  });
 }
 
 chrome.commands.onCommand.addListener(command => {
@@ -172,11 +279,14 @@ document.getElementById('search').addEventListener('click', startSearches);
 
 document.getElementById('open-reward-tasks').addEventListener('click', async () => {
   const tab = await getCurrentTab();
+
   function openRewardTasks() {
-    chrome.tabs.sendMessage(tab.id, { type: 'OPEN_REWARD_TASKS' });
+    chrome.tabs.sendMessage(tab.id, {
+      type: 'OPEN_REWARD_TASKS'
+    });
   }
   if (tab && tab.url.includes('https://rewards.microsoft.com')) {
-      openRewardTasks();
+    openRewardTasks();
   } else {
     chrome.tabs.update({
       url: 'https://rewards.microsoft.com',

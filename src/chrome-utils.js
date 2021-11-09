@@ -19,7 +19,10 @@ function hookStorage(storageKeys, storage) {
       if (typeof storageKey === 'string') {
         if (res[storageKey] !== undefined) storage[storageKey] = res[storageKey].newValue;
       } else {
-        const { key, cb } = storageKey;
+        const {
+          key,
+          cb
+        } = storageKey;
         if (res[key] !== undefined) cb(res[key].newValue);
       }
     });
@@ -50,9 +53,15 @@ async function getStorage(storageKeys, storage) {
           else storage[storageKey] = constants.DEFAULT_PREFERENCES[storageKey];
           return res[storageKey];
         }
-        const { key, cb } = storageKey;
+        const {
+          key,
+          cb
+        } = storageKey;
         cb(res[key]);
-        return { ...acc, [storageKey]: res[key] };
+        return {
+          ...acc,
+          [storageKey]: res[key]
+        };
       }, {}));
     });
   });
@@ -66,9 +75,11 @@ async function getStorage(storageKeys, storage) {
  */
 async function setStorage(keyOrMap, val) {
   return new Promise((resolve, reject) => {
-    const options = typeof keyOrMap === 'string'
-      ? { [keyOrMap]: val }
-      : keyOrMap;
+    const options = typeof keyOrMap === 'string' ?
+      {
+        [keyOrMap]: val
+      } :
+      keyOrMap;
     chrome.storage.local.set(options, () => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);

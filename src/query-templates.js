@@ -1,5 +1,4 @@
-const queryTemplates = [
-  {
+const queryTemplates = [{
     template: 'how fast can a $1 run',
     types: ['animal'],
   },

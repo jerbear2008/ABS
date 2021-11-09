@@ -21,7 +21,7 @@ label {
   display: flex;
 }
 
-.row > * {
+.row>* {
   margin-right: 5px;
 }
 
@@ -114,7 +114,7 @@ a:hover {
   display: none;
 }
 
-#iteration-count-wrapper > div {
+#iteration-count-wrapper>div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

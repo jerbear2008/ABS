@@ -24,11 +24,12 @@ chrome.runtime.onConnect.addListener(port => {
 });
 
 chrome.runtime.onMessage.addListener((msg, sender, cb) => {
-  switch(msg.type) {
+  switch (msg.type) {
     case constants.MESSAGE_TYPES.GET_SEARCH_COUNTS: {
       if (setSearchCounts) setSearchCounts();
       break;
     }
-    default: break;
+    default:
+      break;
   }
 });

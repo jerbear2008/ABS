@@ -5,8 +5,12 @@ function sendMessage(msg) {
 }
 
 function setBadgeReminderWithCount(count) {
-  chrome.browserAction.setBadgeText({ text: count.toString() }); // must be a string type
-  chrome.browserAction.setBadgeBackgroundColor({ color: constants.BADGE_COLOR });
+  chrome.browserAction.setBadgeText({
+    text: count.toString()
+  }); // must be a string type
+  chrome.browserAction.setBadgeBackgroundColor({
+    color: constants.BADGE_COLOR
+  });
 }
 
 function updateLastSearch() {
@@ -24,7 +28,9 @@ function stopSearches() {
   clearTimeout(searchTimeout);
   currentSearchingTabId = null;
   clearBadge();
-  sendMessage({ type: constants.MESSAGE_TYPES.CLEAR_SEARCH_COUNTS });
+  sendMessage({
+    type: constants.MESSAGE_TYPES.CLEAR_SEARCH_COUNTS
+  });
   setSearchCounts = null;
   spoof(false);
   mobileSpoof(false);
@@ -35,7 +41,9 @@ function startSearches(tabId) {
   updateLastSearch();
   currentSearchingTabId = tabId;
 
-  const { platformSpoofing } = prefs;
+  const {
+    platformSpoofing
+  } = prefs;
   const minInterations = Number(prefs.randomSearchIterationsMin);
   const maxIterations = Number(prefs.randomSearchIterationsMax);
   let desktopIterations = prefs.randomSearch ? random(minInterations, maxIterations) : Number(prefs.desktopIterations);
@@ -91,7 +99,7 @@ function startSearches(tabId) {
             setTimeout(() => resolve([overallCount, desktopCount, mobileCount]), delay);
             return;
           }
-  
+
           // an unfortunate solution, but we need to wait until the tab is loaded before resolving
           // so that we don't kill the spoofing before the tab is loaded
           // and for some reason, this listener is triggered multiple times with the same 'completed' status, so we need a flag
@@ -144,10 +152,10 @@ function startSearches(tabId) {
       // if the timeout has been cleared, once the promise finishes, it will invoke another search.
       // So, we check after done waiting for if the search has completed.
       if (currentSearchingTabId !== tabId) return;
-  
+
       setSearchCounts(...counts);
       setBadgeReminderWithCount(numIterations - counts[0]);
-  
+
       if (counts[0] >= numIterations) stopSearches();
       else searchTimeout = setTimeout(searchLoop, currentDelay);
     } catch (err) {

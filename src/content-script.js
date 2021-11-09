@@ -5,7 +5,7 @@ document.addEventListener('CORRECT_ANSWER_RECEIVED', e => {
 
 let shouldOpenRewardTasks;
 chrome.runtime.onMessage.addListener((request, sender, cb) => {
-  switch(request.type) {
+  switch (request.type) {
     case 'OPEN_REWARD_TASKS': {
       shouldOpenRewardTasks = true;
       break;
@@ -16,7 +16,9 @@ chrome.runtime.onMessage.addListener((request, sender, cb) => {
   }
 });
 
-const prefs = { ...constants.DEFAULT_PREFERENCES };
+const prefs = {
+  ...constants.DEFAULT_PREFERENCES
+};
 
 function clickOption(selector, parent = document) {
   const e = parent.querySelector(selector);
@@ -69,7 +71,7 @@ function clickLoop() {
     // click the hidden element here since options are only available while the background is hidden.
     // once the background is not hidden, that means the results are being shown.
     clickHidden('#OptionBackground00.b_hide');
-  
+
     // the correctAnswer variable doesn't work anymore for "this or that"
     // because the window variable doesn't have the same value as the data-option
     clickOption(`#currentQuestionContainer .btOptionCard[data-option="${correctAnswer}"]`);
@@ -80,7 +82,7 @@ function clickLoop() {
     if (prefs.randomGuesses) clickOption('#currentQuestionContainer .btOptionCard');
     else click('.bt_correctOp'); // only works on mobile view
 
-  
+
     // for some reason, testYourSmartsOption.onmouseup returns null
     // as a workaround, parse the search URL from the attribute and manually go to it
     const testYourSmartsOption = document.querySelector('#ListOfQuestionAndAnswerPanes div[id^=QuestionPane]:not(.wk_hideCompulsary) .wk_paddingBtm');
@@ -94,7 +96,7 @@ function clickLoop() {
         }
       }
     }
-  
+
     // this actually might not be necessary, but we can leave it in anyway
     click('#ListOfQuestionAndAnswerPanes div[id^=AnswerPane]:not(.b_hide) input[type=submit]');
   }
